@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report",
+    "flaky:probe": "playwright test tests/login.spec.ts --repeat-each=50 --retries=1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2"
+  }
+}
