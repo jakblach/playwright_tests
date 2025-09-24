@@ -5,11 +5,13 @@ export class BankAccountCreatePage {
     private readonly bankNameField: Locator;
     private readonly routingNumberField: Locator;
     private readonly accountNumberField: Locator;
+    private readonly saveButton: Locator;
 
     constructor(private readonly page: Page) {
         this.bankNameField = this.page.locator('id=bankaccount-bankName-input');
         this.routingNumberField = this.page.locator('id=bankaccount-routingNumber-input');
         this.accountNumberField = this.page.locator('id=bankaccount-accountNumber-input');
+        this.saveButton = this.page.getByRole('button', {name: 'Save'});
     }
 
     async setBankName(bankName: string){
@@ -25,7 +27,7 @@ export class BankAccountCreatePage {
     };
 
     async clickButtonSave(){
-        await this.page.getByRole('button', {name: 'Save'});
+        await this.saveButton.click();
     };
 
 

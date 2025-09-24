@@ -28,7 +28,7 @@ test('creating new user', async ({ page }) => {
     await loginPage.createNewAccount();
     await loginPage.fillFirstName('JAKUBON123');
     await loginPage.fillLastName('SZEFU');
-    await loginPage.fillUsername('test005');
+    await loginPage.fillUsername('test008');
     await loginPage.fillPassword('s3cret1');
     await loginPage.fillConfirmPassword('s3cret1');
     await loginPage.SignIn();
@@ -40,13 +40,13 @@ test('log in as new user and create bank account', async ({page}) => {
   const testWelcome = new WelcomPage(page);
   const testBank = new BankAccountCreatePage(page);
   await loginPage.LoginPage();
-  await loginPage.logOn('test005', 's3cret1');
+  await loginPage.logOn('test008', 's3cret1');
   await testWelcome.waitForOpen();
   await testWelcome.clickNextButtonOnWelocmPage();
   await testBank.setBankName('JAKUBON SIGMOZA');
   await testBank.setRoutingNumber('123456789');
   await testBank.setAccountNumber('123456789');
   await testBank.clickButtonSave();
-
+  await testWelcome.clickDoneButtonOnWelcomePage();
 
 });
