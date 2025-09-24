@@ -56,6 +56,11 @@ export class LoginPage {
         return  this.page.locator('button[data-test="signup-submit"]');
     }
 
+
+    async clickNextButton() {
+        await this.getNextButton().click();
+    }
+
     async SignIn() {
         await this.getSignInButton().click();
     }
