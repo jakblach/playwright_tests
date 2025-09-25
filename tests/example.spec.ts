@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../resources/loginPage';
 import { log } from 'console';
-import { WelcomPage } from '../resources/welcomPage';
+import { WelcomePage } from '../resources/welcomPage';
 import { BankAccountCreatePage } from '../resources/createAccount';
+import { TransactionPage } from '../resources/tansactionPage';
 
 
 
@@ -22,31 +23,41 @@ import { BankAccountCreatePage } from '../resources/createAccount';
 
 // });
 
-test('creating new user', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.LoginPage();
-    await loginPage.createNewAccount();
-    await loginPage.fillFirstName('JAKUBON123');
-    await loginPage.fillLastName('SZEFU');
-    await loginPage.fillUsername('test008');
-    await loginPage.fillPassword('s3cret1');
-    await loginPage.fillConfirmPassword('s3cret1');
-    await loginPage.SignIn();
+// test('creating new user', async ({ page }) => {
+//     const loginPage = new LoginPage(page);
+//     await loginPage.LoginPage();
+//     await loginPage.createNewAccount();
+//     await loginPage.fillFirstName('JAKUBON123');
+//     await loginPage.fillLastName('SZEFU');
+//     await loginPage.fillUsername('test4444');
+//     await loginPage.fillPassword('s3cret1');
+//     await loginPage.fillConfirmPassword('s3cret1');
+//     await loginPage.SignIn();
     
-});
+// });
 
-test('log in as new user and create bank account', async ({page}) => {
+// test('log in as new user and create bank account', async ({page}) => {
+//   const loginPage = new LoginPage(page);
+//   const testWelcome = new WelcomePage(page);
+//   const testBank = new BankAccountCreatePage(page);
+//   await loginPage.LoginPage();
+//   await loginPage.logOn('test4444', 's3cret1');
+//   await testWelcome.waitForOpen();
+//   await testWelcome.clickNextButtonOnWelcomePage();
+//   await testBank.setBankName('JAKUBON SIGMOZA');
+//   await testBank.setRoutingNumber('123456789');
+//   await testBank.setAccountNumber('123456789');
+//   await testBank.clickButtonSave();
+//   await testWelcome.clickDoneButtonOnWelcomePage();
+
+// });
+
+test('log in and check if transaction list is visible', async ({page}) => {
   const loginPage = new LoginPage(page);
-  const testWelcome = new WelcomPage(page);
-  const testBank = new BankAccountCreatePage(page);
+  const transaction = new TransactionPage(page);
+
   await loginPage.LoginPage();
-  await loginPage.logOn('test008', 's3cret1');
-  await testWelcome.waitForOpen();
-  await testWelcome.clickNextButtonOnWelocmPage();
-  await testBank.setBankName('JAKUBON SIGMOZA');
-  await testBank.setRoutingNumber('123456789');
-  await testBank.setAccountNumber('123456789');
-  await testBank.clickButtonSave();
-  await testWelcome.clickDoneButtonOnWelcomePage();
+  await loginPage.logOn('test4444', 's3cret1');
+  await transaction.expectTransactionListVisible();
 
 });
