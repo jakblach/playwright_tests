@@ -10,7 +10,7 @@ export const test = base.extend<MyFixtures>({
     const loginPage = new LoginPage(page);
 
     await page.goto('http://localhost:3000');
-    await loginPage.logOn('test4444', 's3cret1');
+    await loginPage.logOn('test001', 's3cret1');
 
     await use(page);
 
