@@ -1,32 +1,31 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class LoginPage {
-    constructor (private page : Page) {}
 
-    async LoginPage() {                             //OPENNING LOGIN PAGE
+    private readonly usernameField: Locator;
+    private readonly passwordField: Locator;
+    private readonly signInButton: Locator;
+
+    constructor (private page : Page) {
+        this.usernameField = page.locator('id=username');
+        this.passwordField = page.locator('id=password');
+        this.signInButton = page.getByRole('button', {name: 'Sign In'});
+    };
+
+    async goTo() {                             
         await this.page.goto('/login');
+    };
+
+    async fillCredentials(username: string, password: string) {
+        await this.usernameField.fill(username);
+        await this.passwordField.fill(password);
     }
 
-    async logOn(username: string , password: string){
-
-        const usernameInput = this.page.locator('#username');
-        const passwordInput = this.page.locator('#password');
-        const submitButton = this.page.getByRole('button', {name: 'Sign In'});
-
-        await usernameInput.fill(username);
-        await passwordInput.fill(password);
-        await submitButton.click();
+    async clickSignIn() {
+        await expect(this.signInButton).toBeEnabled();
+        await this.signInButton.click();
+    }
     
-    }
-
-
-    async expectInvalidCredentialsError() {
-
-        const error = this.page.getByRole('alert');
-        await expect(error).toContainText('Username or password is invalid'); //TO DO: REMOVE TO SEPARATED RESOURCE
-
-    }
-
     async createNewAccount() {
         const link = this.page.getByTestId('signup');
         await link.click();
