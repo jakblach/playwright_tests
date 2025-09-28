@@ -4,11 +4,13 @@ export class WelcomePage {
     private readonly root: Locator;
     private readonly nextButton: Locator;
     private readonly doneButton: Locator;
+    private readonly appLogo: Locator;
 
     constructor(private readonly page: Page) {
         this.root = page.locator('[data-test="user-onboarding-dialog-title"]');
         this.nextButton = page.getByRole('button', { name: 'Next' });
         this.doneButton = page.getByRole('button', { name: 'Done' });
+        this.appLogo = page.getByTestId('app-name-logo');
     }
 
     // Make a screenshot after each action
@@ -27,6 +29,10 @@ export class WelcomePage {
             console.warn('Onboarding dialog not present — skipping wait');
             await this.takeScreenshot('onboarding-dialog-not-present');
         }
+    }
+
+    async isLoaded() {
+        await expect(this.appLogo).toBeVisible();
     }
 
     // Wait for the 'Next' button to be clickable and then click it
