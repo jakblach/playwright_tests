@@ -11,9 +11,4 @@ export class ErrorMessage {
     await expect(this.errorField).toHaveText(expectedText);
   }
 
-  async expectUsernameRequiredError() {
-    const error = this.page.getByText('Username is required');
-    await expect(error).toBeVisible();
-  }
-
 };
