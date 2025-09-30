@@ -13,12 +13,22 @@ export class WelcomePage {
         this.appLogo = page.getByTestId('app-name-logo');
     }
 
-    async isLoaded() {
+    async expectAppLogoVisible() {
         await expect(this.appLogo).toBeVisible();
     }
 
     async expectWelcomeHeader() {
         await expect(this.header).toHaveText('Get Started with Real World App');
+    }
+
+    async expectNextButtonVisibleAndEnabled() {
+        await expect(this.nextButton).toBeVisible();
+        await expect(this.nextButton).toBeEnabled();
+    }
+
+    async clickNext() {
+        await this.expectNextButtonVisibleAndEnabled();
+        await this.nextButton.click();
     }
     
 };

@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { RegisterPage } from '../../../resources/RegisterPage';
 import { LoginUserPage } from '../../../resources/loginPage';
-import { WelcomePage } from '../../../resources/welcomPage';
+import { WelcomePage } from '../../../resources/WelcomPage';
 
 test('[@user] [@signup] [@critical] User can register and log in with a new account', async ({ page }) => {
     const registerPage = new RegisterPage(page);
