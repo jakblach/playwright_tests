@@ -21,11 +21,15 @@ export class BankAccountCreatePage {
         await expect(this.header).toHaveText('Create Bank Account');
     }
 
-    async createBankAccount(bankName: string, routing: string | number, account: string | number) {
+    async fillBankAccountForm(bankName: string, routing: string | number, account: string | number) {
         await this.expectModalHeader();
         await this.bankNameField.fill(bankName);
         await this.routingNumberField.fill(routing.toString());
         await this.accountNumberField.fill(account.toString());
+    }
+
+    async createBankAccount(bankName: string, routing: string | number, account: string | number) {
+        await this.fillBankAccountForm(bankName, routing, account);
         await expect(this.saveButton).toBeEnabled();
         await this.saveButton.click();
     }
