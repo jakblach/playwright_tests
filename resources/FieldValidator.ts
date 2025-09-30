@@ -9,7 +9,11 @@ export class FieldValidation {
             lastname: 'lastName',
             username: 'username',
             password: 'password',
-            confirmpassword: 'confirmPassword'
+            confirmpassword: 'confirmPassword',
+
+            bankname: 'bankaccount-bankName-input',
+            routingnumber: 'bankaccount-routingNumber-input',
+            accountnumber: 'bankaccount-accountNumber-input',
         };
         return fieldIdMap[field.toLowerCase()] ?? field;
     }
