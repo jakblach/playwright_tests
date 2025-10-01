@@ -7,6 +7,8 @@ export class BankAccountCreatePage {
     private readonly routingNumberField: Locator;
     private readonly accountNumberField: Locator;
     private readonly saveButton: Locator;
+    private readonly createBankAccountButton: Locator;
+    private readonly deleteBankAccountButton: Locator;
 
     constructor(private readonly page: Page) {
         this.header = page.locator('[data-test="user-onboarding-dialog-title"]');
@@ -14,6 +16,8 @@ export class BankAccountCreatePage {
         this.routingNumberField = page.locator('id=bankaccount-routingNumber-input');
         this.accountNumberField = page.locator('id=bankaccount-accountNumber-input');
         this.saveButton = page.getByRole('button', {name: 'Save'});
+        this.createBankAccountButton = page.getByRole('link', {name: 'Create'})
+
     }
 
     async expectModalHeader() {
@@ -22,7 +26,6 @@ export class BankAccountCreatePage {
     }
 
     async fillBankAccountForm(bankName: string, routing: string | number, account: string | number) {
-        await this.expectModalHeader();
         await this.bankNameField.fill(bankName);
         await this.routingNumberField.fill(routing.toString());
         await this.accountNumberField.fill(account.toString());
@@ -32,6 +35,28 @@ export class BankAccountCreatePage {
         await this.fillBankAccountForm(bankName, routing, account);
         await expect(this.saveButton).toBeEnabled();
         await this.saveButton.click();
+    }
+
+    async createNewBankAccount(){
+        await this.createBankAccountButton.click();
+
+    }
+    
+
+    async deleteBankAccount(bankAccountName: string) {
+        const row = this.page.locator('tr', { 
+            has: this.page.locator('p', { hasText: bankAccountName }) 
+        });
+  
+        await expect(row).toBeVisible();
+        await row.getByRole('button', { name: /delete/i }).click();
+        
+        // opcjonalnie: poczekaj na zniknięcie aktywnego stanu
+        await expect(row).not.toHaveClass(/deleting/);
+        
+        await expect(
+            this.page.locator('p', { hasText: `${bankAccountName} (Deleted)` })
+        ).toBeVisible({ timeout: 10000 });
     }
 
 };
