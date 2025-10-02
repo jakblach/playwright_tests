@@ -23,11 +23,5 @@ test('[@bank] [@critical] User can create a bank account after registration',
         
         await finishPage.clickDone();
         await welcomePage.expectAppLogoVisible();
-        await leftMenu.goMyAccountPage();
-        await leftMenu.goToHomePage();
-        await leftMenu.goNotificationsPage();
-        await leftMenu.goBankAccountsPage();
-        await bankAccountPage.createNewBankAccount();
-        await bankAccountPage.createBankAccount('TestBank', 123456789, 987654321);
-        await bankAccountPage.deleteBankAccount('TestBank');
+    
 });

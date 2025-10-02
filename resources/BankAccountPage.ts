@@ -17,6 +17,7 @@ export class BankAccountCreatePage {
         this.accountNumberField = page.locator('id=bankaccount-accountNumber-input');
         this.saveButton = page.getByRole('button', {name: 'Save'});
         this.createBankAccountButton = page.getByRole('link', {name: 'Create'})
+        this.deleteBankAccountButton = page.getByRole('button', {name: 'Delete'});
 
     }
 
@@ -44,19 +45,13 @@ export class BankAccountCreatePage {
     
 
     async deleteBankAccount(bankAccountName: string) {
-        const row = this.page.locator('tr', { 
-            has: this.page.locator('p', { hasText: bankAccountName }) 
+        const item = this.page.locator('li[data-test^="bankaccount-list-item"]', {
+             has: this.page.locator('p', { hasText: bankAccountName })
         });
-  
-        await expect(row).toBeVisible();
-        await row.getByRole('button', { name: /delete/i }).click();
-        
-        // opcjonalnie: poczekaj na zniknięcie aktywnego stanu
-        await expect(row).not.toHaveClass(/deleting/);
-        
-        await expect(
-            this.page.locator('p', { hasText: `${bankAccountName} (Deleted)` })
-        ).toBeVisible({ timeout: 10000 });
+        await item.getByRole('button', { name: 'Delete' }).click();
+        const deletedLabel = item.locator('p', { hasText: `${bankAccountName} (Deleted)` });
+        await expect(deletedLabel).toBeVisible();
+    
     }
 
 };
