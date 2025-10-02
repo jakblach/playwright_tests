@@ -1,5 +1,5 @@
 import { test as base, expect, Page } from '@playwright/test';
-import { LoginPage } from '../resources/loginPage';
+import { LoginUserPage } from '../resources/loginPage';
 
 type MyFixtures = {
   loggedInPage: Page;
@@ -7,14 +7,13 @@ type MyFixtures = {
 
 export const test = base.extend<MyFixtures>({
   loggedInPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
+    const loginPage = new LoginUserPage(page);
 
-    await page.goto('http://localhost:3000');
-    await loginPage.logOn('test001', 's3cret1');
+    await loginPage.goToLoginPage();
+    await loginPage.fillCredentials('Heath93', 's3cret');
+    await loginPage.clickSignIn();
 
     await use(page);
-
-    await page.locator('span:has-text("Logout")').click();
     
   },
 });
