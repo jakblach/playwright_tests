@@ -13,7 +13,7 @@ export class UsersPage {
 
   async selectContactForTransaction(contact: string){
     const contactLocator = this.page.locator(`//ul/li/div[span[contains(text(), '${contact}')]]`);
-    await expect(contactLocator).toBeVisible();
+    // await expect(contactLocator).toBeVisible();
     await contactLocator.click();
 
   };

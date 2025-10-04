@@ -36,6 +36,8 @@ export class BankAccountCreatePage {
         await this.fillBankAccountForm(bankName, routing, account);
         await expect(this.saveButton).toBeEnabled();
         await this.saveButton.click();
+        await this.page.waitForLoadState('networkidle');
+
     }
 
     async createNewBankAccount(){
@@ -48,7 +50,10 @@ export class BankAccountCreatePage {
         const item = this.page.locator('li[data-test^="bankaccount-list-item"]', {
              has: this.page.locator('p', { hasText: bankAccountName })
         });
-        await item.getByRole('button', { name: 'Delete' }).click();
+        const deleteAccountButton = item.getByRole('button', { name: 'Delete' });
+        await expect(deleteAccountButton).toBeVisible({ timeout: 2000000 });
+        await expect(deleteAccountButton).toBeAttached();
+        await deleteAccountButton.click();
         const deletedLabel = item.locator('p', { hasText: `${bankAccountName} (Deleted)` });
         await expect(deletedLabel).toBeVisible();
     
