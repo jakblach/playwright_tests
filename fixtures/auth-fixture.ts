@@ -10,7 +10,7 @@ export const test = base.extend<MyFixtures>({
     const loginPage = new LoginUserPage(page);
 
     await loginPage.goToLoginPage();
-    await loginPage.fillCredentials('Heath93', 's3cret');
+    await loginPage.fillCredentials('Dina20', 's3cret');
     await loginPage.clickSignIn();
 
     await use(page);

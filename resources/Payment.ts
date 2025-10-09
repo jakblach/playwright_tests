@@ -1,4 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { MainPage } from "./MainPage";
+import { UsersPage } from "./userPage";
 
 export class Payment {
 
@@ -17,17 +19,17 @@ export class Payment {
     };
 
     async fillAmount( amountValue: number) {
-        this.amountField.fill(amountValue.toString());
-        await this.amountField.waitFor({ state: 'attached' });
-        // await this.page.waitForTimeout(500);  
+        await this.amountField.waitFor({ state: 'visible' });
+        await this.amountField.fill(amountValue.toString());
         // const filledValue = await this.amountField.inputValue();
         // const numericValue = filledValue.replace(/[^0-9.-]+/g, "").trim();
         // await expect(amountValue.toString()).toBe(numericValue);
     }
 
     async addNote( noteContent: string) {
-        this.addNoteField.fill(noteContent);
-        await this.addNoteField.waitFor({ state: 'attached' });
+        await this.addNoteField.waitFor({ state: 'visible' });
+        await this.addNoteField.fill(noteContent);
+        
         // await this.page.waitForTimeout(500);  
         // const noteInputValue = await this.addNoteField.inputValue();
         // await expect(noteContent).toBe(noteInputValue);
@@ -40,7 +42,7 @@ export class Payment {
 
     };
 
-        async clickPay(){
+    async clickPay(){
         await expect(this.payButton).toBeEnabled();
         await this.payButton.click();
 
@@ -58,6 +60,20 @@ export class Payment {
         }
 
         await expect(this.successMessage).toHaveText(expectedText);
+    }
+    
+    async createTransaction(user: string, amountValue: number, noteContent: string, type: 'Pay' | 'Request', mainPage: MainPage, userPage: UsersPage) {
+        await mainPage.createNewPayment();
+        await userPage.selectContactForTransaction(user);
+        await this.fillAmount(amountValue);
+        await this.addNote(noteContent);
+
+        if (type === 'Pay') {
+            await this.clickPay();
+        } else {
+            await this.clickRequest();
+        }
+        await this.expectSuccessMessage(amountValue, noteContent, type);
     }
 
 

@@ -14,14 +14,9 @@ export class NotificationsPage {
         await expect( this.notificationsHeader).toBeVisible();
     }
 
-    async expectFirstNotificationToBePaymentFrom(senderName: string) {
-        const firstNotification = this.page
-        .locator('.notifications-list span.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary')
-        .first();
-
-    // Pobranie tekstu z elementu
-        const text = await firstNotification.textContent();
-        console.log('Sprawdzany tekst notyfikacji:', text);
+    async assertUserReceivedPayment(userName: string) {
+        const message = `${userName} received payment.`;
+        await expect(this.page.getByText(message).first()).toBeVisible();
     
     }
     

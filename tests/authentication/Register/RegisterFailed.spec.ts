@@ -1,4 +1,4 @@
-yyimport { test } from '@playwright/test';
+import { test } from '@playwright/test';
 import { RegisterPage } from '../../../resources/RegisterPage';
 import { ErrorMessage } from '../../../resources/ErrorMessages';
 import { FieldValidation } from '../../../resources/FieldValidator';

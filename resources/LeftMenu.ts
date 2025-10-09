@@ -6,6 +6,7 @@ export class LeftMenu {
     private readonly myAccountPage: Locator;
     private readonly notificationsPage: Locator;
     private readonly banckAccountPage: Locator;
+    private readonly accountBalance: Locator
 
 
     constructor(private readonly page: Page){
@@ -14,6 +15,7 @@ export class LeftMenu {
         this.myAccountPage = page.getByRole('link', {name: 'My Account'});
         this.notificationsPage = page.getByRole('link', {name: 'Notifications'});
         this.banckAccountPage = page.getByRole('link', {name: 'Bank Accounts'});
+        this.accountBalance = page.locator('[data-test=sidenav-user-balance]');
     
     };
 
@@ -36,6 +38,15 @@ export class LeftMenu {
         await this.banckAccountPage.click();
 
     };
+    
+    async getAccountBalanceValue(): Promise<number> {
+        const text = await this.accountBalance.innerText();
+        const value = parseFloat(text.replace('$', '').replace(',', ''));
+        console.log(value); 
+        return value; 
+    }
+        
+        
         
 
 };
