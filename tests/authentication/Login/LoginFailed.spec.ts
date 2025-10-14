@@ -1,17 +1,20 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../../../resources/loginPage';
-import { ErrorMessage } from '../../../resources/ErrorMessages';
+import { LoginUserPage } from '../../../pages/LoginPage';
+import { ErrorMessage } from '../../../pages/ErrorMessages';
+import { FieldValidation } from '../../../pages/FieldValidator';
 
 test.describe('Login Failed - negative scenarios', () => {
   
-  let loginPage: LoginPage;
+  let loginPage: LoginUserPage;
   let errorMessage: ErrorMessage;
+  let fieldValidatior: FieldValidation;
 
   test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
+    loginPage = new LoginUserPage(page);
     errorMessage = new ErrorMessage(page);
+    fieldValidatior = new FieldValidation(page);
 
-    await loginPage.goTo(); 
+    await loginPage.goToLoginPage(); 
   });
   
   test('It should not log in with invalid password', async () => {
@@ -30,7 +33,7 @@ test.describe('Login Failed - negative scenarios', () => {
 
   test('Field validation should be displayed when Sign In is pressed and the fields are empty', async () => {
     await loginPage.clickSignIn();
-    await errorMessage.expectUsernameRequiredError();
+    await fieldValidatior.expectHelperErrorForField('username', 'Username is required');
   });  
 
 });

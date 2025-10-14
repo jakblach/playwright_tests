@@ -1,8 +1,8 @@
 import { test } from '../../fixtures/newUser';
-import { LoginUserPage } from '../../resources/loginPage';
-import { WelcomePage } from '../../resources/welcomPage';
-import { BankAccountCreatePage } from '../../resources/BankAccountPage';
-import { FieldValidation } from '../../resources/FieldValidator';
+import { LoginUserPage } from '../../pages/LoginPage';
+import { WelcomePage } from '../../pages/WelcomePage';
+import { BankAccountCreatePage } from '../../pages/BankAccountPage';
+import { FieldValidation } from '../../pages/FieldValidator';
 
 test.describe('[@bankaccount] [@validation] Bank account creation - negative validation scenarios (new user)', () => {
   let loginPage: LoginUserPage;
@@ -36,12 +36,6 @@ test.describe('[@bankaccount] [@validation] Bank account creation - negative val
         await bankAccountPage.fillBankAccountForm('Valid Bank', '12345', '987654321');
         await validation.expectHelperErrorForField('routingnumber', 'Must contain a valid routing number');
     });
-
-    // test('It should show error when Account Number is empty', async () => { 
-    //     await bankAccountPage.fillBankAccountForm('Valid Bank', '123456789', '');
-    //     await validation.expectHelperErrorForField('accountnumber', 'Enter a valid bank account number');      #TO BE REFACTORED
-        
-    // }); 
 
     test('It should show error when Account Number is too short', async () => {
         await bankAccountPage.fillBankAccountForm('Valid Bank', '123456789', '12');

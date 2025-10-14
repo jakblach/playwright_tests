@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures/auth-fixture.ts';
-import { UsersPage } from '../../resources/userPage.ts';
-import { Payment } from '../../resources/Payment';
-import { MainPage } from '../../resources/MainPage.ts';
+import { Payment } from '../../pages/Payment';
+import { MainPage } from '../../pages/MainPage';
+import { UsersPage } from '../../pages/UserPage.ts';
 
 test.describe('Request Transaction', () => {
 
@@ -10,7 +10,7 @@ test.describe('Request Transaction', () => {
         const userPage = new UsersPage(loggedInPage);
         const mainPage = new MainPage(loggedInPage);
         await mainPage.createNewPayment();
-        await userPage.selectContactForTransaction('Darrel Ortiz');
+        await userPage.selectContactForTransaction('Ted Parisian');
         await tansactionPage.fillAmount(2137);
         await tansactionPage.addNote('1. TEST TRANSACTION WORKFLOW!!!');
         await tansactionPage.clickRequest();

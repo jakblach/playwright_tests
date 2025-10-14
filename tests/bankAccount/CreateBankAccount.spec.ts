@@ -1,11 +1,11 @@
 import { test, expect } from '../../fixtures/newUser';
-import { LoginUserPage } from '../../resources/loginPage';
-import { WelcomePage } from '../../resources/welcomPage';
-import { BankAccountCreatePage } from '../../resources/BankAccountPage';
-import { FinishedPage } from '../../resources/ModalFinishedPage';
-import { LeftMenu } from '../../resources/LeftMenu';
+import { LoginUserPage } from '../../pages/LoginPage';
+import { WelcomePage } from '../../pages/WelcomePage';
+import { BankAccountCreatePage } from '../../pages/BankAccountPage';
+import { FinishedPage } from '../../pages/ModalFinishedPage';   
+import { LeftMenu } from '../../pages/LeftMenu';
 
-test('[@bank] [@critical] User can create a bank account after registration', 
+test('@bank @critical User can create a bank account after registration', 
     async ({ page, username, password }) => {
         const loginPage = new LoginUserPage(page);
         const welcomePage = new WelcomePage(page);
