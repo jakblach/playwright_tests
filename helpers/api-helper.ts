@@ -45,4 +45,25 @@ export class ApiClient {
     const body = await response.json();
     return { response, user: body.user };
   }
+
+  async getBankAccounts(): Promise<{ response: any; bankAccounts: any[] }> {
+    const response = await this.request.get(`${this.baseUrl}/bankAccounts`);
+    const body = await response.json();
+    return { response, bankAccounts: body.results };
+  }
+
+  async createBankAccount(data: { bankName: string; accountNumber: string; routingNumber: string }): Promise<{ response: any; account: any }> {
+    const response = await this.request.post(`${this.baseUrl}/bankAccounts`, {
+      data,
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const body = await response.json();
+    console.log('Response from createBankAccount:', body);
+    return { response, account: body.account };
+  }
+
+  async deleteBankAccount(bankAccountId: string): Promise<{ response: any }> {
+    const response = await this.request.delete(`${this.baseUrl}/bankAccounts/${bankAccountId}`);
+    return { response };
+  }
 }
