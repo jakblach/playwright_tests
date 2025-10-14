@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { RegisterPage } from '../../../resources/RegisterPage';
-import { ErrorMessage } from '../../../resources/ErrorMessages';
-import { FieldValidation } from '../../../resources/FieldValidator';
+import { RegisterPage } from '../../../pages/RegisterPage';
+import { ErrorMessage } from '../../../pages/ErrorMessages';
+import { FieldValidation } from '../../../pages/FieldValidator';
 
 test.describe('User registration validation', () => {
   let registerPage: RegisterPage;

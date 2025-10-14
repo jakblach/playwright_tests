@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { MainPage } from "./MainPage";
-import { UsersPage } from "./userPage";
+import { UsersPage } from "./UserPage";
 
 export class Payment {
 

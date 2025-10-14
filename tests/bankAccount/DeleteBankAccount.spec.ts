@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/auth-fixture.ts';
-import { BankAccountCreatePage } from '../../resources/BankAccountPage.ts';
-import { LeftMenu } from '../../resources/LeftMenu.ts';
+import { BankAccountCreatePage } from '../../pages/BankAccountPage.ts';
+import { LeftMenu } from '../../pages/LeftMenu.ts';
 
 test('User should be able remove new created bank account', async ({ loggedInPage }) => {
     const bankAccountPage = new BankAccountCreatePage(loggedInPage);

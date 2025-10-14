@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { RegisterPage } from '../resources/RegisterPage';
+import { RegisterPage } from '../pages/RegisterPage';
 
 type NewUserFixture = {
     username: string;

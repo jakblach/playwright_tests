@@ -1,11 +1,11 @@
 import { test, expect } from '../../fixtures/auth-fixture.ts';
-import { UsersPage } from '../../resources/userPage.ts';
-import { Payment } from '../../resources/Payment';
-import { MainPage } from '../../resources/MainPage.ts';
-import { LoginUserPage } from '../../resources/loginPage.ts';
-import { NotificationsPage } from '../../resources/NotifiactionsPage.ts';
-import { WelcomePage } from '../../resources/welcomPage.ts';
-import { LeftMenu } from '../../resources/LeftMenu.ts';
+import { UsersPage } from '../../pages/UserPage';
+import { Payment } from '../../pages/Payment';
+import { MainPage } from '../../pages/MainPage.ts';
+import { LoginUserPage } from '../../pages/LoginPage.ts';
+import { NotificationsPage } from '../../pages/NotifiactionsPage.ts';
+import { WelcomePage } from '../../pages/WelcomePage.ts';
+import { LeftMenu } from '../../pages/LeftMenu.ts';
 
 test.describe('Pay Transaction', () => {
 
@@ -15,7 +15,7 @@ test.describe('Pay Transaction', () => {
         const userPage = new UsersPage(loggedInPage);
         const testPage = new MainPage(loggedInPage);
         await testPage.createNewPayment();
-        await userPage.selectContactForTransaction('Darrel Ortiz');
+        await userPage.selectContactForTransaction('Ted Parisian');
         await tansactionPage.fillAmount(2137);
         await tansactionPage.addNote('1. TEST TRANSACTION WORKFLOW!!!');
         await tansactionPage.clickPay();
@@ -46,15 +46,7 @@ test.describe('Pay Transaction', () => {
         const mainPage = new MainPage(loggedInPage);
         const balanceBefore = await leftMenu.getAccountBalanceValue();
     
-        
         await transactionPage.createTransaction('Ted Parisian', 678, 'Saldo update test', 'Pay', mainPage, userPage)
-        // await mainPage.createNewPayment();
-        // await userPage.selectContactForTransaction();
-        // await transactionPage.fillAmount(678);
-        // await transactionPage.addNote('Saldo update test');
-        // await transactionPage.clickPay();
-        // await transactionPage.expectSuccessMessage(678, 'Saldo update test', 'Pay');
-
         const balanceAfter = await leftMenu.getAccountBalanceValue();
         expect(balanceBefore - balanceAfter).toBeCloseTo(678, 2);
 
